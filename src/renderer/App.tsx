@@ -700,7 +700,7 @@ export function App() {
                     </button>
                   )}
                 </div>
-                {updateState.status !== 'idle' && <p className="update-detail">{updateState.status === 'up-to-date' ? (settings.language === 'zh-CN' ? '当前已是最新稳定版。' : 'You are using the latest stable version.') : updateState.status === 'available' ? (settings.language === 'zh-CN' ? '发现新版本，正在后台下载。' : 'A new version is downloading in the background.') : updateState.status === 'error' ? updateErrorMessage(updateState.message, settings.language) : updateState.status === 'unsupported' ? (settings.language === 'zh-CN' ? (isMac ? '本测试版暂不提供自动更新。' : '开发环境或当前平台不支持自动更新。') : (isMac ? 'Automatic updates are unavailable in this test build.' : 'Automatic updates are unavailable in this environment.')) : ''}</p>}
+                {updateState.status !== 'idle' && <p className="update-detail">{updateState.status === 'up-to-date' ? (settings.language === 'zh-CN' ? '当前已是最新稳定版。' : 'You are using the latest stable version.') : updateState.status === 'available' ? (settings.language === 'zh-CN' ? '发现新版本（已禁用自动下载）。' : 'A new version is available (auto-download disabled).') : updateState.status === 'error' ? updateErrorMessage(updateState.message, settings.language) : updateState.status === 'unsupported' ? (settings.language === 'zh-CN' ? (isMac ? '本测试版暂不提供自动更新。' : '开发环境或当前平台不支持自动更新。') : (isMac ? 'Automatic updates are unavailable in this test build.' : 'Automatic updates are unavailable in this environment.')) : ''}</p>}
               </article>
               <article className="card setting-card">
                 <div><h2>{t.language}</h2></div>
