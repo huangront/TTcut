@@ -50,8 +50,10 @@ await writeFile(
   `!define TTCUT_ONLINE_MODEL_INSTALLER ${onlineModelInstaller ? '1' : '0'}\n`,
   'utf8',
 );
-const powerShellExecutable = process.env.TTCUT_POWERSHELL_PATH
+const pwshCandidate = process.env.TTCUT_POWERSHELL_PATH
   ?? path.join(process.env.ProgramW6432 ?? process.env.ProgramFiles ?? 'C:\\Program Files', 'PowerShell', '7', 'pwsh.exe');
+// [修改] 没有 PowerShell 7 时 fallback 到系统自带的 Windows PowerShell 5.1。
+const powerShellExecutable = existsSync(pwshCandidate) ? pwshCandidate : 'powershell.exe';
 const assetResult = spawnSync(powerShellExecutable, [
   '-NoProfile',
   '-NonInteractive',
