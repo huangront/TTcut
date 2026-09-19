@@ -68,13 +68,15 @@ export class AppUpdater {
       this.setState({ status: 'unsupported', version: null, message: null });
       return;
     }
-    autoUpdater.autoDownload = true;
-    autoUpdater.autoInstallOnAppQuit = true;
+    // [修改] 禁用自动下载更新：发现更新后不自动下载，需用户手动触发。
+    autoUpdater.autoDownload = false;
+    autoUpdater.autoInstallOnAppQuit = false;
     autoUpdater.allowPrerelease = app.getVersion().includes('-');
     const nsisUpdater = autoUpdater as NsisUpdater;
     nsisUpdater.verifyUpdateCodeSignature = createUpdateCodeSignatureVerifier(() => this.pendingVersion);
-    this.timer = setTimeout(() => void this.check(), 10_000);
-    this.timer.unref?.();
+    // [修改] 不再在启动后自动定时检查更新；用户仍可通过“检查更新”按钮手动触发 check()。
+    // this.timer = setTimeout(() => void this.check(), 10_000);
+    // this.timer.unref?.();
   }
 
   async check(): Promise<UpdateState> {
